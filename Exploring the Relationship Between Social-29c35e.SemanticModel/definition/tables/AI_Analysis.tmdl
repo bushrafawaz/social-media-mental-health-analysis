@@ -1,0 +1,23 @@
+table AI_Analysis
+	lineageTag: cb028750-84b1-5d17-a652-ad85d23521ca
+
+	measure 'AI_Analysis Record Count' = COUNTROWS('AI_Analysis')
+		formatString: #,0
+		lineageTag: 3fb00a0f-57e5-51ee-8536-fb56610d0fdd
+
+	column 'Analysis Question'
+		dataType: string
+		lineageTag: 0b85ac82-c32c-5849-b186-02012f8cb33d
+		summarizeBy: none
+		sourceColumn: [Analysis Question]
+
+	column 'AI Approach'
+		dataType: string
+		lineageTag: 6d509fb8-9c31-5b0d-8f99-10bb83daeca2
+		summarizeBy: none
+		sourceColumn: [AI Approach]
+
+	partition AI_Analysis = calculated
+		mode: import
+		source = DATATABLE("Analysis Question", STRING, "AI Approach", STRING, {{"Is higher social media usage associated with higher anxiety levels?", "Analyze the relationship between daily_social_media_hours and anxiety_level."}, {"Is social media usage associated with stress levels?", "Analyze the relationship between daily_social_media_hours and stress_level."}, {"Is screen time before sleep associated with sleep duration?", "Analyze the relationship between screen_time_before_sleep and sleep_hours."}, {"Is social media platform usage associated with mental health indicators?", "Compare stress, anxiety, and addiction levels across platform_usage categories."}, {"Is physical activity associated with stress and anxiety levels?", "Compare physical_activity levels with stress_level and anxiety_level."}})
+

@@ -1,0 +1,29 @@
+table 'Patterns & Insights'
+	lineageTag: 4ec1f05f-078d-571d-ac8c-16b7c3a4d042
+
+	measure 'Patterns & Insights Record Count' = COUNTROWS('Patterns & Insights')
+		formatString: #,0
+		lineageTag: 18e938fb-dc3f-5d83-9051-d550d91e4b0c
+
+	column Pattern
+		dataType: string
+		lineageTag: 7d824695-0a07-548c-83dd-24e7127526d9
+		summarizeBy: none
+		sourceColumn: [Pattern]
+
+	column Evidence
+		dataType: string
+		lineageTag: e831be68-c234-5560-b2c8-bb13daa19161
+		summarizeBy: none
+		sourceColumn: [Evidence]
+
+	column Insight
+		dataType: string
+		lineageTag: c8ff0587-08a0-5484-8aaf-c8c78d4e16a7
+		summarizeBy: none
+		sourceColumn: [Insight]
+
+	partition 'Patterns & Insights' = calculated
+		mode: import
+		source = DATATABLE("Pattern", STRING, "Evidence", STRING, "Insight", STRING, {{"Social media usage has a very weak, near-zero relationship with anxiety", "Pearson r = 0.0278", "The result indicates almost no linear association between daily social media hours and anxiety scores in this dataset."}, {"Social media usage has a very weak, near-zero relationship with stress", "Pearson r = 0.0307", "The result indicates almost no linear association between daily social media hours and stress scores in this dataset."}, {"Screen time before sleep has a very weak, near-zero relationship with sleep duration", "Pearson r = 0.0102", "The result indicates almost no linear association between pre-sleep screen time and sleep hours in this dataset."}, {"Physical activity has very weak, near-zero relationships with stress and anxiety", "Stress r = 0.0122; Anxiety r = -0.0222", "Both correlations are very close to zero, indicating no clear linear pattern between physical activity and these outcomes."}, {"Platform usage groups did not show a statistically significant difference in stress.", "ANOVA: F = 0.9004, p = 0.4067", "Since p > 0.05, the analysis does not provide sufficient evidence of a statistically significant difference in average stress across Instagram, TikTok, and Both groups."}, {"The depression label is highly imbalanced", "97.4% zeros vs. 2.6% positives", "The strong class imbalance limits the usefulness of this variable for predictive modeling without appropriate imbalance-handling techniques."}, {"The dataset is clean and complete", "1,200 rows, 13 columns, 0 missing values, 0 duplicates", "The Data Audit found no missing or duplicate records, providing a complete dataset for the conducted analysis."}})
+

@@ -1,0 +1,35 @@
+table AI_Data_Quality
+	lineageTag: c50ca0dd-621e-5e62-9e6a-3faff5f16cdc
+
+	measure 'AI_Data_Quality Record Count' = COUNTROWS('AI_Data_Quality')
+		formatString: #,0
+		lineageTag: 736ddbe6-1ba8-51e2-b8fa-49e7d7a6e218
+
+	column Check
+		dataType: string
+		lineageTag: 8752da43-6931-52cc-ac32-6147be05fb51
+		summarizeBy: none
+		sourceColumn: [Check]
+
+	column 'AI Observation'
+		dataType: string
+		lineageTag: 6b7a074a-d5de-596e-b88a-0b79df0642c4
+		summarizeBy: none
+		sourceColumn: [AI Observation]
+
+	column 'Action Taken'
+		dataType: string
+		lineageTag: 8e9dbc35-e132-538f-a369-203f7e3827a1
+		summarizeBy: none
+		sourceColumn: [Action Taken]
+
+	column Status
+		dataType: boolean
+		lineageTag: 2e28805a-a934-5d61-be9e-13e8af989dc7
+		summarizeBy: none
+		sourceColumn: [Status]
+
+	partition AI_Data_Quality = calculated
+		mode: import
+		source = DATATABLE("Check", STRING, "AI Observation", STRING, "Action Taken", STRING, "Status", BOOLEAN, {{"Missing Values", "AI-assisted review found no missing values across the 13 columns", "No action required.", TRUE}, {"Duplicate Rows", "AI-assisted review found no duplicate rows in the dataset.", "No action required.", TRUE}, {"Value Ranges", "AI-assisted review confirmed that numeric values fall within the expected ranges.", "No action required.", TRUE}, {"Categorical Values", "AI-assisted review confirmed that categorical variables contain expected categories only.", "No action required.", TRUE}, {"Data Types", "AI-assisted review found no major data type issues.", "No action required.", TRUE}, {"Class Distribution", "AI-assisted review identified a class imbalance in depression_label: 31 positive labels (2.6%) and 1,169 negative labels (97.4%).", "No data modification. Documented as a limitation because the highly imbalanced depression_label limits the ability to draw reliable conclusions from comparisons involving this variable", TRUE}})
+
